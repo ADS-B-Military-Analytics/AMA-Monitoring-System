@@ -4,9 +4,7 @@
 
 This is a dashboard that allows myself to montior various aspects of the [ADS-B Military Analytics](https://github.com/ADS-B-Military-Analytics/ADS-B-Military-Analytics) project. It is a work in progress and is not yet complete.
 
-## Login
-
-Login is required. I will giveout logins at my discretion. If you would like to request a login, please contact my support@adsbmilanalytics.com. Please include your name, email address, and a brief description of why you would like to use the dashboard.
+Versions before v1.0 are not functional. While they may install they do not work.
 
 ## Technologies Used
 
