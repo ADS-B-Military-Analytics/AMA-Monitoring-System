@@ -18,9 +18,9 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: setup node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 16
       - name: install Rust stable
@@ -38,21 +38,11 @@ jobs:
         with:
           tagName: app-v__VERSION__
           releaseName: "App v__VERSION__"
-          releaseBody: ${{ github.event.head_commit.message }}
+          releaseBody: "Release notes:
+          - __FEATURES__
+          - __FIXES__"
           releaseDraft: false
           prerelease: false
-      - name: Publish release
-        uses: actions/github@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          repository: ${{ github.repository }}
-          tag_name: app-v__VERSION__
-          release_name: "App v__VERSION__"
-          body: ${{ github.event.head_commit.message }}
-          draft: false
-          prerelease: false
-      - name: Release Changelog Builder
-        uses: mikepenz/release-changelog-builder-action@v3.7.0
 
   analyze:
     name: Analyze
