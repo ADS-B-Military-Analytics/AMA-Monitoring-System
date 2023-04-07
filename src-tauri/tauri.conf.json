@@ -7,8 +7,8 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "adsbmonitoring",
-    "version": "0.1.0"
+    "productName": "AMA DevOps",
+    "version": "../package.json"
   },
   "tauri": {
     "allowlist": {
@@ -56,7 +56,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "ADS-B Military Analytics Monitoring",
+        "title": "AMA DevOps Dashboard",
         "width": 800
       }
     ]
