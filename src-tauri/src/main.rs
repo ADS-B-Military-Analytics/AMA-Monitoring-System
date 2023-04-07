@@ -3,21 +3,17 @@
     windows_subsystem = "windows"
 )]
 
-use chrono::offset::Utc;
-use chrono::DateTime;
-use std::time::SystemTime;
+pub mod mongo;
 
 #[tauri::command]
-fn adsb() -> String {
-    let now: DateTime<Utc> = SystemTime::now().into();
-    let now = now.format("%Y-%m-%d %H:%M:%S").to_string();
-    let adsb = format!("Hello from Rust at {}", now);
-    adsb
+async fn mongo_count() -> u64 {
+    let count = mongo::mongo().await;
+    count
 }
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![adsb])
+        .invoke_handler(tauri::generate_handler![mongo_count])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
