@@ -1,8 +1,11 @@
-name: 'publish'
+name: "publish"
 on:
   push:
     branches:
       - master
+    pull_request:
+      branches:
+        - master
 
 jobs:
   publish-tauri:
@@ -34,7 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tagName: app-v__VERSION__
-          releaseName: 'App v__VERSION__'
+          releaseName: "App v__VERSION__"
           releaseBody: ${{ github.event.head_commit.message }}
           releaseDraft: false
           prerelease: false
@@ -44,7 +47,36 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
           tag_name: app-v__VERSION__
-          release_name: 'App v__VERSION__'
+          release_name: "App v__VERSION__"
           body: ${{ github.event.head_commit.message }}
           draft: false
           prerelease: false
+      - name: Release Changelog Builder
+        uses: mikepenz/release-changelog-builder-action@v3.7.0
+
+  analyze:
+    name: Analyze
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ["javascript"]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v2
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
+        with:
+          category: "/language:${{matrix.language}}"
