@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { invoke } from "@tauri-apps/api";
 import Button from "@mui/material/Button";
 import "../../styles/Dashboard.scss";
-import { useState } from "react";
 
 export default function Dashboard() {
   const { isAuthenticated } = useAuth0();
